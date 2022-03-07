@@ -1,0 +1,66 @@
+{
+  "name": "bereklub-frontend",
+  "version": "0.0.1",
+  "description": "A frontend for the BereKlub.",
+  "keywords": [
+    "vite",
+    "vue3",
+    "vuetify3",
+    "Pinia",
+    "Vitest",
+    "TypeScript",
+    "TSLint",
+    "Prettier"
+  ],
+  "scripts": {
+    "dev": "vite --port 8080 --open",
+    "json-server": "json-server --watch db.json --routes routes.json",
+    "dev-clear": "vite --force --port 8080 --open",
+    "build": "vue-tsc --noEmit && vite build",
+    "serve": "vite preview",
+    "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx --ignore-path .gitignore --fix",
+    "format": "prettier --write ./**/*.{vue,ts,tsx,js,jsx,css,less,scss,json,md}",
+    "test": "vitest run",
+    "test-coverage": "vitest run --coverage"
+  },
+  "dependencies": {
+    "@mdi/font": "^6.5.95",
+    "axios": "^0.26.0",
+    "pinia": "^2.0.11",
+    "roboto-fontface": "^0.10.0",
+    "vue": "^3.2.31",
+    "vue-global-api": "^0.4.1",
+    "vue-i18n": "^9.1.9",
+    "vue-router": "^4.0.13",
+    "vue3-table-lite": "^1.1.7-1",
+    "vuetify": "^3.0.0-alpha.13"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.21",
+    "@typescript-eslint/eslint-plugin": "^5.13.0",
+    "@typescript-eslint/parser": "^5.13.0",
+    "@vitejs/plugin-vue": "^2.2.4",
+    "@vue/test-utils": "^2.0.0-rc.18",
+    "@vuetify/vite-plugin": "^1.0.0-alpha.10",
+    "c8": "^7.11.0",
+    "eslint": "^8.10.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^8.5.0",
+    "jsdom": "^19.0.0",
+    "prettier": "^2.5.1",
+    "sass": "^1.49.9",
+    "sass-loader": "^12.6.0",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.5.5",
+    "vite": "^2.8.6",
+    "vitest": "^0.5.9",
+    "vue-loader": "^17.0.0",
+    "vue-tsc": "^0.32.1"
+  },
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/kecskecske6/bereklub-frontend"
+  },
+  "license": "MIT"
+}
