@@ -95,6 +95,6 @@
 
 <style scoped>
   .v-card-title {
-    background-color: lightgray;
+    background: linear-gradient(-90deg, #84cf6a, #16c0b0);
   }
 </style>

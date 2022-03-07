@@ -26,18 +26,18 @@
       disabled: false,
     },
     {
-      icon: "mdi-soccer",
-      text: t("examples"),
-      name: "examples",
-      route: "/examples",
+      icon: "mdi-account",
+      text: t("account"),
+      name: "account",
+      route: "/account",
       disabled: false,
     },
     {
-      icon: "mdi-table",
-      text: "v-table",
-      name: "",
-      route: "/vtable",
-      disabled: notLoggedIn,
+      icon: "mdi-air-filter",
+      text: t("recipes"),
+      name: "recipes",
+      route: "/recipes",
+      disabled: false,
     },
     {
       icon: "mdi-table-refresh",
@@ -45,20 +45,6 @@
       name: "",
       route: "/v3table",
       disabled: notLoggedIn,
-    },
-    {
-      icon: "mdi-cart-outline",
-      text: "VM-Socks",
-      name: "",
-      route: "/socks",
-      disabled: false,
-    },
-    {
-      icon: "mdi-earth",
-      text: "VM-Real World Vue3",
-      name: "",
-      route: "/realworldvue3",
-      disabled: false,
     },
     {
       icon: "mdi-state-machine",
@@ -75,13 +61,6 @@
       disabled: false,
     },
     {
-      icon: "mdi-account",
-      text: t("account"),
-      name: "account",
-      route: "/account",
-      disabled: false,
-    },
-    {
       icon: "mdi-information",
       text: t("about"),
       name: "about",
@@ -94,23 +73,23 @@
       icon: "mdi-github",
       text: "GitHub repo",
       name: "",
-      link: "https://github.com/nitslaszlo/jedlik-vite-ts-template",
+      link: "https://github.com/kecskecske6/bereklub-frontend",
       disabled: false,
     },
-    {
-      icon: "mdi-vuetify",
-      text: "Vuetify 3",
-      name: "",
-      link: "https://next.vuetifyjs.com/en/getting-started/installation",
-      disabled: false,
-    },
-    {
-      icon: "mdi-fruit-pineapple",
-      text: "Pinia",
-      name: "",
-      link: "https://pinia.vuejs.org/introduction.html",
-      disabled: false,
-    },
+    // {
+    //   icon: "mdi-vuetify",
+    //   text: "Vuetify 3",
+    //   name: "",
+    //   link: "https://next.vuetifyjs.com/en/getting-started/installation",
+    //   disabled: false,
+    // },
+    // {
+    //   icon: "mdi-fruit-pineapple",
+    //   text: "Pinia",
+    //   name: "",
+    //   link: "https://pinia.vuejs.org/introduction.html",
+    //   disabled: false,
+    // },
     // {
     //   icon: "mdi-bootstrap",
     //   text: "Bootstrap 5",
@@ -153,7 +132,9 @@
           @click="drawer = !isMobileDevice"
         ></v-list-item>
       </v-list>
-      <p class="text-center my-3">{{ $t("links") }}</p>
+      <v-container fluid class="linksTitle text-center">
+        <span>{{ $t("links") }}</span>
+      </v-container>
       <v-list dense nav>
         <v-list-item
           v-for="(item, i) in links"
@@ -173,7 +154,8 @@
         :color="notLoggedIn ? 'surface' : 'success'"
         @click="drawer = !drawer"
       ></v-app-bar-nav-icon>
-      Jedlik Vite TS {{ $t("template") }} - {{ notLoggedIn ? $t("noUser") : loggedUser?.name }}
+      CooKing |
+      {{ notLoggedIn ? $t("noUser") : loggedUser?.name }}
       <v-spacer></v-spacer>
       <v-badge :content="locale" offset-x="6" offset-y="6">
         <v-btn :color="notLoggedIn ? 'surface' : 'success'" icon @click="toggleLanguage">
@@ -201,5 +183,11 @@
 <style>
   #main {
     min-height: 100vh;
+  }
+  .linksTitle {
+    padding: 5px;
+    background: linear-gradient(-90deg, #84cf6a, #16c0b0);
+    color: #eeeeee;
+    font-weight: bold;
   }
 </style>

@@ -17,6 +17,7 @@ import VueMasteryVuexFundamentalsEventDetails from "./VueMastery_Vuex_Fundamenta
 import VueMasteryVuexFundamentalsAbout from "./VueMastery_Vuex_Fundamentals/components/AboutComp.vue";
 import VueMasteryVuexFundamentalsEventCreate from "./VueMastery_Vuex_Fundamentals/components/EventCreate.vue";
 import VueMasterySocksView from "./views/VueMasterySocksView.vue";
+import RecipesView from "./views/RecipesView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -25,14 +26,19 @@ const routes: Array<RouteRecordRaw> = [
     component: StartPageView,
   },
   {
+    path: "/account",
+    name: "Account",
+    component: AccountView,
+  },
+  {
     path: "/examples",
     name: "Examples",
     component: ExamplesView,
   },
   {
-    path: "/account",
-    name: "Account",
-    component: AccountView,
+    path: "/recipes",
+    name: "Recipes",
+    component: RecipesView
   },
   {
     path: "/vtable",

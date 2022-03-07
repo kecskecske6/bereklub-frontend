@@ -6,8 +6,10 @@
   "about": "About",
   "account": "Account",
   "template": "Template",
-  "noUser": "is not logged in",
+  "noUser": "not logged in",
   "startPage": "Start page",
   "gridDemo": "Grid demo",
-  "links": "Links"
+  "links": "Links",
+  "sayingThatMakesPeopleCatchOurRestaurant": "Just don't tell the Queen",
+  "recipes": "Recipes"
 }
