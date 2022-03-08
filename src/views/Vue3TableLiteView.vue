@@ -1,27 +1,27 @@
 <script setup lang="ts">
-  import { IPost, usePostsStore } from "../store/postsStore";
-  import EditPost from "../components/EditPost.vue";
-  import NewPost from "../components/NewPost.vue";
+  import { IRecipe, useRecipesStore } from "../store/recipesStore";
+  import EditRecipe from "../components/EditRecipe.vue";
+  import NewRecipe from "../components/NewRecipe.vue";
 
   import { useUsersStore } from "../store/usersStore";
 
   import VueTableLite from "vue3-table-lite/ts";
 
-  const postsStore = usePostsStore();
+  const recipesStore = useRecipesStore();
   const usersStore = useUsersStore();
 
-  const allPosts = computed(() => postsStore.getPosts);
-  const numberOfPosts = computed(() => postsStore.getNumberOfPosts);
-  const isLoading = computed(() => postsStore.getLoading);
+  const allRecipes = computed(() => recipesStore.getRecipes);
+  const numberofRecipes = computed(() => recipesStore.getNumberOfRecipes);
+  const isLoading = computed(() => recipesStore.getLoading);
   const loggedUser = computed(() => usersStore.getLoggedUser);
   let refreshNeeding = false;
 
   let checkedRowsIds = [];
 
   const searchTerm = ref(""); // Search text
-  const showNewPostDialog = ref(false); // True if show new post
+  const showNewRecipeDialog = ref(false); // True if show new post
   const showEditDialog = ref(false); // True if show edit post
-  const selectedPost = ref<IPost>();
+  const selectedRecipe = ref<IRecipe>();
 
   watch(searchTerm, () => {
     doSearch(0, table.pageSize.toString(), table.sortable.order, table.sortable.sort);
@@ -29,7 +29,7 @@
 
   watch(isLoading, () => {
     if (refreshNeeding && !isLoading.value) {
-      while (table.offset >= numberOfPosts.value) {
+      while (table.offset >= numberofRecipes.value) {
         table.offset -= table.pageSize;
       }
       doSearch(table.offset, table.pageSize.toString(), table.sortable.order, table.sortable.sort);
@@ -80,7 +80,7 @@
         width: "55%",
         sortable: true,
         display: function (row) {
-          return row.content.slice(0, 71) + "...";
+          return row.description.slice(0, 71) + "...";
         },
       },
       {
@@ -96,8 +96,8 @@
         },
       },
     ],
-    rows: allPosts,
-    totalRecordCount: numberOfPosts,
+    rows: allRecipes,
+    totalRecordCount: numberofRecipes,
     sortable: {
       order: "title",
       sort: "asc",
@@ -118,7 +118,7 @@
     ],
   });
   const doSearch = (offset: number, limit: string, order: string, sort: string) => {
-    postsStore.fetchPaginatedPosts({
+    recipesStore.fetchPaginatedRecipes({
       offset: offset,
       limit: limit,
       order: order,
@@ -136,9 +136,9 @@
     Array.prototype.forEach.call(elements, function (element) {
       if (element.classList.contains("quick-btn")) {
         element.addEventListener("click", function () {
-          const selPost = allPosts.value.find((x) => x._id == element.dataset.id);
-          if (selPost) {
-            selectedPost.value = selPost;
+          const selRecipe = allRecipes.value.find((x) => x._id == element.dataset.id);
+          if (selRecipe) {
+            selectedRecipe.value = selRecipe;
             showEditDialog.value = true;
           }
         });
@@ -153,7 +153,7 @@
   };
 
   function createNewDocument() {
-    showNewPostDialog.value = true;
+    showNewRecipeDialog.value = true;
   }
 </script>
 
@@ -182,13 +182,17 @@
       @is-finished="tableLoadingFinish"
       @return-checked-rows="updateCheckedRows"
     ></VueTableLite>
-    <EditPost
-      v-if="showEditDialog && selectedPost"
+    <EditRecipe
+      v-if="showEditDialog && selectedRecipe"
       v-model="showEditDialog"
-      :post="selectedPost"
+      :recipe="selectedRecipe"
       @close="closeDialogs"
-    ></EditPost>
-    <NewPost v-if="showNewPostDialog" v-model="showNewPostDialog" @close="closeDialogs"></NewPost>
+    ></EditRecipe>
+    <NewRecipe
+      v-if="showNewRecipeDialog"
+      v-model="showNewRecipeDialog"
+      @close="closeDialogs"
+    ></NewRecipe>
   </v-container>
 </template>
 

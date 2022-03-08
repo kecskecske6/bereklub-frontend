@@ -1,17 +1,21 @@
 import $axios from "./axios.instance";
 import { defineStore } from "pinia";
 
-export interface IPost {
+export interface IRecipe {
   _id: string;
   author: string;
-  content: string;
   title: string;
+  ingredients: string[];
+  description: string;
+  category: string;
+  imageUrl: string;
+  votes: number;
 }
 
 interface IState {
   loading: boolean;
-  numberOfPosts: number;
-  posts: Array<IPost>;
+  numberOfRecipes: number;
+  recipes: Array<IRecipe>;
 }
 
 interface IPaginatedParams {
@@ -28,45 +32,48 @@ interface IIdParams {
 
 export interface IEditParams {
   _id: string;
+  title: string;
+  ingredients: string[];
+  description: string;
+  category: string;
+  imageUrl: string;
+}
+
+export interface INewRecipeParams {
   content: string;
   title: string;
 }
 
-export interface INewPostParams {
-  content: string;
-  title: string;
-}
-
-export const usePostsStore = defineStore({
-  id: "postsStore",
+export const useRecipesStore = defineStore({
+  id: "recipesStore",
   state: (): IState => ({
     loading: false,
-    numberOfPosts: 0,
-    posts: [],
+    numberOfRecipes: 0,
+    recipes: [],
   }),
   getters: {
     getLoading(): boolean {
       return this.loading;
     },
-    getPosts(): Array<IPost> {
-      return this.posts;
+    getRecipes(): Array<IRecipe> {
+      return this.recipes;
     },
-    getNumberOfPosts(): number {
-      return this.numberOfPosts;
+    getNumberOfRecipes(): number {
+      return this.numberOfRecipes;
     },
   },
   actions: {
-    async createNewPost(params: INewPostParams): Promise<void> {
+    async createNewRecipe(params: INewRecipeParams): Promise<void> {
       this.loading = true;
       $axios
-        .post("posts", {
+        .post("recipes", {
           title: params.title,
           content: params.content,
         })
         .then((res) => {
           if (res && res.data) {
             console.log(res.data.post);
-            this.numberOfPosts = res.data.count;
+            this.numberOfRecipes = res.data.count;
           }
           this.loading = false;
         })
@@ -76,12 +83,12 @@ export const usePostsStore = defineStore({
           this.loading = false;
         });
     },
-    async editPostById(params: IEditParams): Promise<void> {
+    async editRecipeById(params: IEditParams): Promise<void> {
       this.loading = true;
       $axios
-        .patch(`posts/${params._id}`, {
+        .patch(`recipes/${params._id}`, {
           title: params.title,
-          content: params.content,
+          description: params.description,
         })
         .then((res) => {
           if (res && res.data) {
@@ -94,14 +101,14 @@ export const usePostsStore = defineStore({
           this.loading = false;
         });
     },
-    async deletePostById(params: IIdParams): Promise<void> {
+    async deleteRecipeById(params: IIdParams): Promise<void> {
       this.loading = true;
       $axios
-        .delete(`posts/${params._id}`)
+        .delete(`recipes/${params._id}`)
         .then((res) => {
           if (res && res.data) {
             console.log(res.data.status);
-            this.numberOfPosts = res.data.count;
+            this.numberOfRecipes = res.data.count;
           }
           this.loading = false;
         })
@@ -110,14 +117,14 @@ export const usePostsStore = defineStore({
           this.loading = false;
         });
     },
-    async fetchPosts(): Promise<void> {
+    async fetchRecipes(): Promise<void> {
       this.loading = true;
       $axios
-        .get("posts")
+        .get("recipes")
         .then((res) => {
           if (res && res.data) {
-            this.posts = res.data.posts;
-            this.numberOfPosts = res.data.count;
+            this.recipes = res.data.recipes;
+            this.numberOfRecipes = res.data.count;
           }
           this.loading = false;
         })
@@ -126,16 +133,16 @@ export const usePostsStore = defineStore({
           this.loading = false;
         });
     },
-    async fetchPaginatedPosts(params: IPaginatedParams): Promise<void> {
+    async fetchPaginatedRecipes(params: IPaginatedParams): Promise<void> {
       this.loading = true;
       $axios
         .get(
-          `posts/${params.offset}/${params.limit}/${params.order}/${params.sort}/${params.keyword}`
+          `recipes/${params.offset}/${params.limit}/${params.order}/${params.sort}/${params.keyword}`
         )
         .then((res) => {
           if (res && res.data) {
-            this.posts = res.data.posts;
-            this.numberOfPosts = res.data.count;
+            this.recipes = res.data.recipes;
+            this.numberOfRecipes = res.data.count;
           }
           this.loading = false;
         })
