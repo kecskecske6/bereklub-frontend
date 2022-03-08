@@ -11,5 +11,11 @@
   "gridDemo": "Grid demo",
   "links": "Links",
   "recipes": "Recipes",
-  "slogan": "Just don't tell the Queen"
+  "slogan": "Just don't tell the Queen",
+  "login": "Login",
+  "logOut": "Log out",
+  "wait": "Please wait...",
+  "loginForm": "Login form",
+  "logoutForm": "Logout form",
+  "close": "Close"
 }

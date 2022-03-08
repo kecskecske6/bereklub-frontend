@@ -11,5 +11,11 @@
   "gridDemo": "Rács demó",
   "links": "Hivatkozások",
   "recipes": "Receptek",
-  "slogan": "Csak a királynő meg ne tudja"
+  "slogan": "Csak a királynő meg ne tudja",
+  "login": "Bejelentkezés",
+  "logOut": "Kijelentkezés",
+  "wait": "Kérem várjon...",
+  "loginForm": "Bejelentkezési űrlap",
+  "logoutForm": "Kijelentkezési űrlap",
+  "close": "Bezárás"
 }

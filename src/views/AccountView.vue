@@ -25,11 +25,11 @@
       <v-col md="4" sm="8" xs="12">
         <v-card class="elevation-12">
           <v-card-title v-if="!anyLoggedUser">
-            Login form
+            {{$t("loginForm")}}
             <v-icon>mdi-login</v-icon>
           </v-card-title>
           <v-card-title v-else>
-            Logout form
+            {{$t("logoutForm")}}
             <v-icon>mdi-logout</v-icon>
           </v-card-title>
           <v-card-text>
@@ -64,9 +64,9 @@
                 })
               "
             >
-              Login
+              {{ $t("login")}}
             </v-btn>
-            <v-btn v-else class="mt-3" color="warning" @click="usersStore.logOut()">Log out</v-btn>
+            <v-btn v-else class="mt-3" color="warning" @click="usersStore.logOut()">{{ $t("logOut")}}</v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -75,7 +75,7 @@
     <v-dialog v-model="isLoading" hide-overlay persistent>
       <v-card color="primary">
         <v-card-text>
-          Please wait...
+          {{$t("wait")}}
           <v-progress-linear class="mb-0" color="white" indeterminate></v-progress-linear>
         </v-card-text>
       </v-card>
@@ -86,7 +86,7 @@
         <v-card-title>Error</v-card-title>
         <v-card-text>{{ errorMsg }}</v-card-text>
         <v-card-actions>
-          <v-btn color="primary" text @click="usersStore.clearErrorMsg()">Close</v-btn>
+          <v-btn color="primary" text @click="usersStore.clearErrorMsg()">{{$t("close")}}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -96,5 +96,6 @@
 <style scoped>
   .v-card-title {
     background: linear-gradient(-90deg, #84cf6a, #16c0b0);
+    color: white;
   }
 </style>
