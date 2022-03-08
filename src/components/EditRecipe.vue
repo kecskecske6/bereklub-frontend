@@ -1,11 +1,11 @@
 <script setup lang="ts">
   import { PropType } from "vue";
-  import { IPost, usePostsStore } from "../store/postsStore";
+  import { IRecipe, useRecipesStore } from "../store/recipesStore";
   import ConfirmDialog from "./ConfirmDialog.vue";
 
-  const postsStore = usePostsStore();
+  const recipesStore = useRecipesStore();
 
-  postsStore.loading = false;
+  recipesStore.loading = false;
 
   const props = defineProps({
     modelValue: {
@@ -13,8 +13,8 @@
       default: false,
       required: true,
     },
-    post: {
-      type: Object as PropType<IPost>,
+    recipe: {
+      type: Object as PropType<IRecipe>,
       required: true,
     },
   });
@@ -28,20 +28,23 @@
       return emit("update:modelValue", value);
     },
   });
-  const post = computed(() => props.post);
-  const origTitle = post.value.title;
-  const origContent = post.value.content;
+  const recipe = computed(() => props.recipe);
+  const origTitle = recipe.value.title;
+  const origDescription = recipe.value.description;
   const showConfirmEdit = ref(false);
   const showConfirmDelete = ref(false);
   const showConfirmClose = ref(false);
   const resultConfirm = ref(false);
 
-  function confirmEditPost() {
+  function confirmEditRecipe() {
     if (resultConfirm.value) {
-      postsStore.editPostById({
-        _id: post.value._id,
-        title: post.value.title,
-        content: post.value.content,
+      recipesStore.editRecipeById({
+        _id: recipe.value._id,
+        title: recipe.value.title,
+        ingredients: recipe.value.ingredients,
+        description: recipe.value.description,
+        category: recipe.value.category,
+        imageUrl: recipe.value.imageUrl,
       });
       show.value = false;
       emit("close");
@@ -50,10 +53,10 @@
     }
   }
 
-  function confirmDeletePost() {
+  function confirmDeleteRecipe() {
     if (resultConfirm.value) {
-      postsStore.deletePostById({
-        _id: post.value._id,
+      recipesStore.deleteRecipeById({
+        _id: recipe.value._id,
       });
       show.value = false;
       emit("close");
@@ -64,8 +67,8 @@
 
   function confirmCloseDialog() {
     if (resultConfirm.value) {
-      post.value.title = origTitle;
-      post.value.content = origContent;
+      recipe.value.title = origTitle;
+      recipe.value.description = origDescription;
       show.value = false;
       emit("close");
     } else {
@@ -83,12 +86,12 @@
   }
 
   const isChanged = computed(
-    () => post.value.title != origTitle || post.value.content != origContent
+    () => recipe.value.title != origTitle || recipe.value.description != origDescription
   );
 
   function revertChanges() {
-    post.value.title = origTitle;
-    post.value.content = origContent;
+    recipe.value.title = origTitle;
+    recipe.value.description = origDescription;
   }
 </script>
 
@@ -96,10 +99,16 @@
   <v-row justify="center">
     <v-dialog v-model="show" persistent :retain-focus="false" transition="scale-transition">
       <v-card>
-        <v-card-title class="text-h5">Post: {{ post._id }}</v-card-title>
+        <v-card-title class="text-h5">Recipe: {{ recipe._id }}</v-card-title>
         <!-- <v-card-text>Post: {{ props.post }}</v-card-text> -->
-        <v-text-field v-model="post.title" class="mb-1" label="Title"></v-text-field>
-        <v-textarea v-model="post.content" filled label="Content" rows="6" shaped></v-textarea>
+        <v-text-field v-model="recipe.title" class="mb-1" label="Title"></v-text-field>
+        <v-textarea
+          v-model="recipe.description"
+          filled
+          label="Content"
+          rows="6"
+          shaped
+        ></v-textarea>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
@@ -135,7 +144,7 @@
       v-model="showConfirmEdit"
       v-model:result="resultConfirm"
       title="Save changes"
-      @close="confirmEditPost"
+      @close="confirmEditRecipe"
     />
     <ConfirmDialog
       v-if="showConfirmDelete"
@@ -143,7 +152,7 @@
       v-model:result="resultConfirm"
       :retain-focus="false"
       title="Delete document"
-      @close="confirmDeletePost"
+      @close="confirmDeleteRecipe"
     />
     <ConfirmDialog
       v-if="showConfirmClose"

@@ -1,12 +1,12 @@
 <script setup lang="ts">
-  import { usePostsStore } from "../store/postsStore";
+  import { useRecipesStore } from "../store/recipesStore";
 
-  const postsStore = usePostsStore();
+  const recipesStore = useRecipesStore();
 
-  const allPosts = computed(() => postsStore.getPosts);
+  const allRecipes = computed(() => recipesStore.getRecipes);
 
   onMounted(() => {
-    postsStore.fetchPosts();
+    recipesStore.fetchRecipes();
   });
 </script>
 
@@ -22,7 +22,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item, i) in allPosts" :key="i">
+          <tr v-for="(item, i) in allRecipes" :key="i">
             <td>{{ item._id }}</td>
             <td>{{ item.author }}</td>
             <td>{{ item.title }}</td>
