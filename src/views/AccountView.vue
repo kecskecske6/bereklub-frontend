@@ -83,7 +83,7 @@
     <!-- Dialog 2: Show error messages -->
     <v-dialog v-model="isErrorMsg">
       <v-card>
-        <v-card-title>Error</v-card-title>
+        <v-card-title>{{$t("error")}}</v-card-title>
         <v-card-text>{{ errorMsg }}</v-card-text>
         <v-card-actions>
           <v-btn color="primary" text @click="usersStore.clearErrorMsg()">{{$t("close")}}</v-btn>

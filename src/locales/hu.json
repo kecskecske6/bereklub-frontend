@@ -17,5 +17,6 @@
   "wait": "Kérem várjon...",
   "loginForm": "Bejelentkezési űrlap",
   "logoutForm": "Kijelentkezési űrlap",
-  "close": "Bezárás"
+  "close": "Bezárás",
+  "error": "Hiba"
 }

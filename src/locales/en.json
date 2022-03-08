@@ -17,5 +17,6 @@
   "wait": "Please wait...",
   "loginForm": "Login form",
   "logoutForm": "Logout form",
-  "close": "Close"
+  "close": "Close",
+  "error": "Error"
 }
