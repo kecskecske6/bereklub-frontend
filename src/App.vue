@@ -154,7 +154,8 @@
         :color="notLoggedIn ? 'surface' : 'success'"
         @click="drawer = !drawer"
       ></v-app-bar-nav-icon>
-      CooKing |
+      <v-icon v-if="notLoggedIn">mdi-account-off</v-icon>
+      <v-icon v-else>mdi-account</v-icon>
       {{ notLoggedIn ? $t("noUser") : loggedUser?.name }}
       <v-spacer></v-spacer>
       <v-badge :content="locale" offset-x="6" offset-y="6">
