@@ -50,16 +50,6 @@
     isLoading: isLoading,
     columns: [
       {
-        label: "ID",
-        field: "_id",
-        width: "5%",
-        sortable: false,
-        isKey: true,
-        display: function (row) {
-          return row._id.slice(5, 9);
-        },
-      },
-      {
         label: "Aut",
         field: "author",
         width: "5%",

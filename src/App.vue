@@ -41,10 +41,9 @@
     },
     {
       icon: "mdi-table-refresh",
-      text: "vue3-table-light",
+      text: t("votes"),
       name: "",
-      route: "/v3table",
-      disabled: notLoggedIn,
+      route: "/votes",
     },
     {
       icon: "mdi-state-machine",
@@ -132,7 +131,7 @@
           @click="drawer = !isMobileDevice"
         ></v-list-item>
       </v-list>
-      <v-container fluid class="linksTitle text-center">
+      <v-container class="linksTitle text-center" fluid>
         <span>{{ $t("links") }}</span>
       </v-container>
       <v-list dense nav>
