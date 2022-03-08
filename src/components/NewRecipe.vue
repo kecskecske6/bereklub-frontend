@@ -1,8 +1,8 @@
 <script setup lang="ts">
   import ConfirmDialog from "./ConfirmDialog.vue";
-  import { usePostsStore } from "../store/postsStore";
+  import { useRecipesStore } from "../store/recipesStore";
 
-  const postsStore = usePostsStore();
+  const recipesStore = useRecipesStore();
 
   const props = defineProps({
     modelValue: {
@@ -23,17 +23,17 @@
   });
 
   const title = ref("");
-  const content = ref("");
+  const description = ref("");
 
   const showConfirmSave = ref(false);
   const showConfirmClose = ref(false);
   const resultConfirm = ref(false);
 
-  function confirmSavePost() {
+  function confirmSaveRecipe() {
     if (resultConfirm.value) {
-      postsStore.createNewPost({
+      recipesStore.createNewRecipe({
         title: title.value,
-        content: content.value,
+        content: description.value,
       });
       show.value = false;
       emit("close");
@@ -60,7 +60,7 @@
     }
   }
 
-  const isChanged = computed(() => title.value != "" && content.value != "");
+  const isChanged = computed(() => title.value != "" && description.value != "");
 </script>
 
 <template>
@@ -70,7 +70,7 @@
         <v-card-title class="text-h5">New post</v-card-title>
         <!-- <v-card-text>Post: {{ props.post }}</v-card-text> -->
         <v-text-field v-model="title" class="mb-1" label="Title"></v-text-field>
-        <v-textarea v-model="content" filled label="Content" rows="6" shaped></v-textarea>
+        <v-textarea v-model="description" filled label="Content" rows="6" shaped></v-textarea>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
@@ -90,7 +90,7 @@
       v-model="showConfirmSave"
       v-model:result="resultConfirm"
       title="Save changes"
-      @close="confirmSavePost"
+      @close="confirmSaveRecipe"
     />
     <ConfirmDialog
       v-if="showConfirmClose"
