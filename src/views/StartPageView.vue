@@ -2,8 +2,9 @@
 <template>
   <div class="startPage d-flex flex-column text-center justify-center" style="height: 90vh">
     <div class="shade"></div>
-    <h1>CooKing</h1>
-    <h2>{{ $t("sayingThatMakesPeopleCatchOurRestaurant") }}</h2>
+    <img class="logo" src="../assets/logo.png" />
+    <h1>Coo<span>King</span></h1>
+    <h3>{{ $t("slogan") }}</h3>
   </div>
 </template>
 <style scoped>
@@ -14,9 +15,10 @@
     background-size: cover;
     background-position: center;
     position: relative;
-  }
-  .startPage {
     color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .shade {
     z-index: -1;
@@ -25,5 +27,15 @@
     height: 100%;
     background-color: black;
     opacity: 0.55;
+  }
+  .logo {
+    width: 75px;
+    height: 75px;
+  }
+  h1 span {
+    color: #ffd700;
+  }
+  h3 {
+    color: rgb(200, 200, 200);
   }
 </style>
