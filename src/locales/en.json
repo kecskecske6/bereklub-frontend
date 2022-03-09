@@ -12,5 +12,13 @@
   "links": "Links",
   "recipes": "Recipes",
   "slogan": "Just don't tell the Queen",
-  "votes": "Votes"
+  "votes": "Votes",
+  "newRecipe": "New recipe",
+  "save": "Save",
+  "close": "Close",
+  "title": "Title",
+  "search": "Search",
+  "newDocument": "New document",
+  "description": "Description",
+  "category": "Category"
 }

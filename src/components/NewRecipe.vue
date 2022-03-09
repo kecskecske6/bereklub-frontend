@@ -24,6 +24,9 @@
 
   const title = ref("");
   const description = ref("");
+  const category = ref("");
+  const imageUrl = ref("");
+  const ingredients = ref([]);
 
   const showConfirmSave = ref(false);
   const showConfirmClose = ref(false);
@@ -33,7 +36,10 @@
     if (resultConfirm.value) {
       recipesStore.createNewRecipe({
         title: title.value,
-        content: description.value,
+        description: description.value,
+        category: category.value,
+        imageUrl: imageUrl.value,
+        ingredients: ingredients.value,
       });
       show.value = false;
       emit("close");
@@ -67,10 +73,23 @@
   <v-row justify="center">
     <v-dialog v-model="show" persistent :retain-focus="false" transition="scale-transition">
       <v-card>
-        <v-card-title class="text-h5">New post</v-card-title>
+        <v-card-title class="text-h5">{{ $t("newRecipe") }}</v-card-title>
         <!-- <v-card-text>Post: {{ props.post }}</v-card-text> -->
-        <v-text-field v-model="title" class="mb-1" label="Title"></v-text-field>
-        <v-textarea v-model="description" filled label="Content" rows="6" shaped></v-textarea>
+        <v-text-field v-model="title" class="mb-1" :label="$t('title')"></v-text-field>
+        <v-textarea
+          v-model="description"
+          filled
+          :label="$t('description')"
+          rows="6"
+          shaped
+        ></v-textarea>
+        <v-text-field v-model="category" class="mb-1" :label="$t('category')"></v-text-field>
+        <v-text-field v-model="imageUrl" class="mb-1" :label="$t('image')"></v-text-field>
+        <v-text-field
+          v-model="ingredients[0]"
+          class="mb-1"
+          :label="$t('ingredient')"
+        ></v-text-field>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
@@ -79,9 +98,9 @@
             elevation="5"
             @click="showConfirmSave = true"
           >
-            Save
+            {{ $t("save") }}
           </v-btn>
-          <v-btn color="blue-lighten-3" elevation="5" @click="closeDialog">Close</v-btn>
+          <v-btn color="blue-lighten-3" elevation="5" @click="closeDialog">{{ $t("close") }}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

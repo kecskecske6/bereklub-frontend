@@ -150,12 +150,14 @@
 <template>
   <v-container class="page">
     <v-row>
-      <v-col cols="12" sm="4"><h3>vue3-table-light</h3></v-col>
-      <v-col cols="12" sm="4">
-        <v-text-field v-model="searchTerm" label="Search"></v-text-field>
+      <v-col cols="12" sm="12">
+        <h1>{{ $t("votes") }}</h1>
       </v-col>
-      <v-col cols="12" sm="4">
-        <v-btn color="blue darken-1" @click="createNewDocument">New document</v-btn>
+      <v-col cols="12" sm="6">
+        <v-text-field v-model="searchTerm" :label="$t('search')"></v-text-field>
+      </v-col>
+      <v-col cols="12" sm="6">
+        <v-btn color="blue darken-1" @click="createNewDocument">{{ $t("newDocument") }}</v-btn>
       </v-col>
     </v-row>
     <VueTableLite
@@ -210,5 +212,8 @@
   }
   .edit-btn {
     background-color: green;
+  }
+  h1 {
+    text-align: center;
   }
 </style>

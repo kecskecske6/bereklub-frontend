@@ -44,6 +44,7 @@
       text: t("votes"),
       name: "",
       route: "/votes",
+      disabled: false,
     },
     {
       icon: "mdi-state-machine",

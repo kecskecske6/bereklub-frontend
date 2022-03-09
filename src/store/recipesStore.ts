@@ -40,8 +40,11 @@ export interface IEditParams {
 }
 
 export interface INewRecipeParams {
-  content: string;
+  description: string;
   title: string;
+  category: string;
+  imageUrl: string;
+  ingredients: string[];
 }
 
 export const useRecipesStore = defineStore({
@@ -68,7 +71,10 @@ export const useRecipesStore = defineStore({
       $axios
         .post("recipes", {
           title: params.title,
-          content: params.content,
+          description: params.description,
+          category: params.category,
+          imageUrl: params.imageUrl,
+          ingredients: params.ingredients,
         })
         .then((res) => {
           if (res && res.data) {
