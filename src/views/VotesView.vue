@@ -1,7 +1,5 @@
 <script setup lang="ts">
-  import { IRecipe, useRecipesStore } from "../store/recipesStore";
-  import EditRecipe from "../components/EditRecipe.vue";
-  import NewRecipe from "../components/NewRecipe.vue";
+  import { useRecipesStore } from "../store/recipesStore";
 
   import VueTableLite from "vue3-table-lite/ts";
 
@@ -15,9 +13,6 @@
   let checkedRowsIds = [];
 
   const searchTerm = ref(""); // Search text
-  const showNewRecipeDialog = ref(false); // True if show new post
-  const showEditDialog = ref(false); // True if show edit post
-  const selectedRecipe = ref<IRecipe>();
 
   watch(searchTerm, () => {
     doSearch(0, table.pageSize.toString(), table.sortable.order, table.sortable.sort);
@@ -36,10 +31,6 @@
   onMounted(() => {
     doSearch(0, "5", "title", "asc");
   });
-
-  function closeDialogs() {
-    refreshNeeding = true;
-  }
 
   const table = reactive({
     isLoading: isLoading,
@@ -131,10 +122,6 @@
     const number = checkedRowsIds.length;
     console.log("Checked: " + checkedRowsIds.length + (number == 1 ? "row" : "rows"));
   };
-
-  function createNewDocument() {
-    showNewRecipeDialog.value = true;
-  }
 </script>
 
 <template>
@@ -145,9 +132,6 @@
       </v-col>
       <v-col cols="12" sm="6">
         <v-text-field v-model="searchTerm" :label="$t('search')"></v-text-field>
-      </v-col>
-      <v-col cols="12" sm="6">
-        <v-btn color="blue darken-1" @click="createNewDocument">{{ $t("newDocument") }}</v-btn>
       </v-col>
     </v-row>
     <VueTableLite
@@ -163,17 +147,6 @@
       @is-finished="tableLoadingFinish"
       @return-checked-rows="updateCheckedRows"
     ></VueTableLite>
-    <EditRecipe
-      v-if="showEditDialog && selectedRecipe"
-      v-model="showEditDialog"
-      :recipe="selectedRecipe"
-      @close="closeDialogs"
-    ></EditRecipe>
-    <NewRecipe
-      v-if="showNewRecipeDialog"
-      v-model="showNewRecipeDialog"
-      @close="closeDialogs"
-    ></NewRecipe>
   </v-container>
 </template>
 
