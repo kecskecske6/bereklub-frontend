@@ -37,11 +37,15 @@ export interface IEditParams {
   description: string;
   category: string;
   imageUrl: string;
+  votes: number;
 }
 
 export interface INewRecipeParams {
-  content: string;
+  description: string;
   title: string;
+  category: string;
+  imageUrl: string;
+  ingredients: string[];
 }
 
 export const useRecipesStore = defineStore({
@@ -68,7 +72,10 @@ export const useRecipesStore = defineStore({
       $axios
         .post("recipes", {
           title: params.title,
-          content: params.content,
+          description: params.description,
+          category: params.category,
+          imageUrl: params.imageUrl,
+          ingredients: params.ingredients,
         })
         .then((res) => {
           if (res && res.data) {
@@ -89,6 +96,10 @@ export const useRecipesStore = defineStore({
         .patch(`recipes/${params._id}`, {
           title: params.title,
           description: params.description,
+          ingredients: params.ingredients,
+          category: params.category,
+          imageUrl: params.imageUrl,
+          votes: params.votes,
         })
         .then((res) => {
           if (res && res.data) {

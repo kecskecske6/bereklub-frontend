@@ -45,6 +45,7 @@
         description: recipe.value.description,
         category: recipe.value.category,
         imageUrl: recipe.value.imageUrl,
+        votes: recipe.value.votes,
       });
       show.value = false;
       emit("close");

@@ -3,17 +3,13 @@
   import EditRecipe from "../components/EditRecipe.vue";
   import NewRecipe from "../components/NewRecipe.vue";
 
-  import { useUsersStore } from "../store/usersStore";
-
   import VueTableLite from "vue3-table-lite/ts";
 
   const recipesStore = useRecipesStore();
-  const usersStore = useUsersStore();
 
   const allRecipes = computed(() => recipesStore.getRecipes);
   const numberofRecipes = computed(() => recipesStore.getNumberOfRecipes);
   const isLoading = computed(() => recipesStore.getLoading);
-  const loggedUser = computed(() => usersStore.getLoggedUser);
   let refreshNeeding = false;
 
   let checkedRowsIds = [];
@@ -46,53 +42,29 @@
   }
 
   const table = reactive({
-    hasCheckbox: true,
     isLoading: isLoading,
     columns: [
       {
-        label: "ID",
-        field: "_id",
-        width: "5%",
-        sortable: false,
-        isKey: true,
-        display: function (row) {
-          return row._id.slice(5, 9);
-        },
-      },
-      {
-        label: "Aut",
-        field: "author",
-        width: "5%",
-        sortable: false,
-        display: function (row) {
-          return row.author.slice(5, 9);
-        },
-      },
-      {
-        label: "Title",
+        label: "Name",
         field: "title",
         width: "30%",
         sortable: true,
       },
       {
-        label: "Content",
-        field: "content",
+        label: "Votes",
+        field: "votes",
         width: "55%",
         sortable: true,
         display: function (row) {
-          return row.description.slice(0, 71) + "...";
+          return row.votes;
         },
       },
       {
-        label: "E/D",
+        label: "Vote",
         field: "quick",
         width: "5%",
         display: function (row) {
-          if (row.author == loggedUser.value?._id) {
-            return `<button type="button" data-id="${row._id}" class="is-rows-el quick-btn">E/D</button>`;
-          } else {
-            return "";
-          }
+          return `<button type="button" data-id="${row._id}" class="is-rows-el quick-btn">Vote</button>`;
         },
       },
     ],
@@ -138,8 +110,16 @@
         element.addEventListener("click", function () {
           const selRecipe = allRecipes.value.find((x) => x._id == element.dataset.id);
           if (selRecipe) {
-            selectedRecipe.value = selRecipe;
-            showEditDialog.value = true;
+            recipesStore.editRecipeById({
+              _id: selRecipe._id,
+              title: selRecipe.title,
+              ingredients: selRecipe.ingredients,
+              description: selRecipe.description,
+              category: selRecipe.category,
+              imageUrl: selRecipe.imageUrl,
+              votes: selRecipe.votes + 1,
+            });
+            refreshNeeding = true;
           }
         });
       }
@@ -160,17 +140,18 @@
 <template>
   <v-container class="page">
     <v-row>
-      <v-col cols="12" sm="4"><h3>vue3-table-light</h3></v-col>
-      <v-col cols="12" sm="4">
-        <v-text-field v-model="searchTerm" label="Search"></v-text-field>
+      <v-col cols="12" sm="12">
+        <h1>{{ $t("votes") }}</h1>
       </v-col>
-      <v-col cols="12" sm="4">
-        <v-btn color="blue darken-1" @click="createNewDocument">New document</v-btn>
+      <v-col cols="12" sm="6">
+        <v-text-field v-model="searchTerm" :label="$t('search')"></v-text-field>
+      </v-col>
+      <v-col cols="12" sm="6">
+        <v-btn color="blue darken-1" @click="createNewDocument">{{ $t("newDocument") }}</v-btn>
       </v-col>
     </v-row>
     <VueTableLite
       :columns="table.columns"
-      :has-checkbox="table.hasCheckbox"
       :is-loading="table.isLoading"
       :messages="table.messages"
       :page-options="table.pageOptions"
@@ -220,5 +201,8 @@
   }
   .edit-btn {
     background-color: green;
+  }
+  h1 {
+    text-align: center;
   }
 </style>

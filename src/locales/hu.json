@@ -11,5 +11,14 @@
   "gridDemo": "Rács demó",
   "links": "Hivatkozások",
   "recipes": "Receptek",
-  "slogan": "Csak a királynő meg ne tudja"
+  "slogan": "Csak a királynő meg ne tudja",
+  "votes": "Szavazatok",
+  "newRecipe": "Új recept hozzáadása",
+  "save": "Mentés",
+  "close": "Bezárás",
+  "title": "Név",
+  "search": "Keresés",
+  "newDocument": "Új dokumentum",
+  "description": "Leírás",
+  "category": "Kategória"
 }

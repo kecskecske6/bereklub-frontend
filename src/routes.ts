@@ -9,7 +9,7 @@ import GridView from "./views/GridView.vue";
 import protectedRoute from "./middlewares/protected";
 import StartPageView from "./views/StartPageView.vue";
 import VTableView from "./views/VTableView.vue";
-import Vue3TableLiteView from "./views/Vue3TableLiteView.vue";
+import VotesView from "./views/VotesView.vue";
 import VueMasteryRealWorldVue3 from "./views/VueMasteryRealWorldVue3.vue";
 import VueMasteryVuexFundamentals from "./views/VueMasteryVuexFundamentals.vue";
 import VueMasteryVuexFundamentalsEventList from "./VueMastery_Vuex_Fundamentals/components/EventList.vue";
@@ -38,7 +38,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/recipes",
     name: "Recipes",
-    component: RecipesView
+    component: RecipesView,
   },
   {
     path: "/vtable",
@@ -47,9 +47,9 @@ const routes: Array<RouteRecordRaw> = [
     beforeEnter: protectedRoute,
   },
   {
-    path: "/v3table",
-    name: "V3TableLite",
-    component: Vue3TableLiteView,
+    path: "/votes",
+    name: "Votes",
+    component: VotesView,
   },
   {
     path: "/socks",
