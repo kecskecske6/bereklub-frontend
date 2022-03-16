@@ -3,17 +3,13 @@
   import EditRecipe from "../components/EditRecipe.vue";
   import NewRecipe from "../components/NewRecipe.vue";
 
-  import { useUsersStore } from "../store/usersStore";
-
   import VueTableLite from "vue3-table-lite/ts";
 
   const recipesStore = useRecipesStore();
-  const usersStore = useUsersStore();
 
   const allRecipes = computed(() => recipesStore.getRecipes);
   const numberofRecipes = computed(() => recipesStore.getNumberOfRecipes);
   const isLoading = computed(() => recipesStore.getLoading);
-  const loggedUser = computed(() => usersStore.getLoggedUser);
   let refreshNeeding = false;
 
   let checkedRowsIds = [];
@@ -46,43 +42,29 @@
   }
 
   const table = reactive({
-    hasCheckbox: true,
     isLoading: isLoading,
     columns: [
       {
-        label: "Aut",
-        field: "author",
-        width: "5%",
-        sortable: false,
-        display: function (row) {
-          return row.author.slice(5, 9);
-        },
-      },
-      {
-        label: "Title",
+        label: "Name",
         field: "title",
         width: "30%",
         sortable: true,
       },
       {
-        label: "Content",
-        field: "content",
+        label: "Votes",
+        field: "votes",
         width: "55%",
         sortable: true,
         display: function (row) {
-          return row.description.slice(0, 71) + "...";
+          return row.votes;
         },
       },
       {
-        label: "E/D",
+        label: "Vote",
         field: "quick",
         width: "5%",
         display: function (row) {
-          if (row.author == loggedUser.value?._id) {
-            return `<button type="button" data-id="${row._id}" class="is-rows-el quick-btn">E/D</button>`;
-          } else {
-            return "";
-          }
+          return `<button type="button" data-id="${row._id}" class="is-rows-el quick-btn">Vote</button>`;
         },
       },
     ],
@@ -128,8 +110,16 @@
         element.addEventListener("click", function () {
           const selRecipe = allRecipes.value.find((x) => x._id == element.dataset.id);
           if (selRecipe) {
-            selectedRecipe.value = selRecipe;
-            showEditDialog.value = true;
+            recipesStore.editRecipeById({
+              _id: selRecipe._id,
+              title: selRecipe.title,
+              ingredients: selRecipe.ingredients,
+              description: selRecipe.description,
+              category: selRecipe.category,
+              imageUrl: selRecipe.imageUrl,
+              votes: selRecipe.votes + 1,
+            });
+            refreshNeeding = true;
           }
         });
       }
@@ -162,7 +152,6 @@
     </v-row>
     <VueTableLite
       :columns="table.columns"
-      :has-checkbox="table.hasCheckbox"
       :is-loading="table.isLoading"
       :messages="table.messages"
       :page-options="table.pageOptions"

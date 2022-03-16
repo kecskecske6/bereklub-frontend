@@ -37,6 +37,7 @@ export interface IEditParams {
   description: string;
   category: string;
   imageUrl: string;
+  votes: number;
 }
 
 export interface INewRecipeParams {
@@ -95,6 +96,10 @@ export const useRecipesStore = defineStore({
         .patch(`recipes/${params._id}`, {
           title: params.title,
           description: params.description,
+          ingredients: params.ingredients,
+          category: params.category,
+          imageUrl: params.imageUrl,
+          votes: params.votes,
         })
         .then((res) => {
           if (res && res.data) {
