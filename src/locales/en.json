@@ -20,5 +20,7 @@
   "search": "Search",
   "newDocument": "New document",
   "description": "Description",
-  "category": "Category"
+  "category": "Category",
+  "image": "Image",
+  "ingredients": "Ingredients"
 }

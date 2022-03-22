@@ -151,27 +151,6 @@
 </template>
 
 <style scoped>
-  .card ::v-deep(.table .thead-dark th) {
-    color: #fff;
-    background-color: #42b983;
-    border-color: #42b983;
-  }
-  .card ::v-deep(.table td),
-  .card ::v-deep(.table tr) {
-    border: 1px solid #42b983;
-  }
-  .card ::v-deep(.quick-btn) {
-    background-color: lightgray;
-    border-style: solid;
-  }
-
-  .card ::v-deep(.table tr:nth-child(even)) {
-    background-color: #f2f2f2;
-  }
-
-  .card ::v-deep(.table tr:hover) {
-    background-color: #ddd;
-  }
   .edit-btn {
     background-color: green;
   }

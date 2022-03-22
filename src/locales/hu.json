@@ -20,5 +20,7 @@
   "search": "Keresés",
   "newDocument": "Új dokumentum",
   "description": "Leírás",
-  "category": "Kategória"
+  "category": "Kategória",
+  "image": "Kép",
+  "ingredients": "Hozzávalók"
 }

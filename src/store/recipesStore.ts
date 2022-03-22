@@ -46,6 +46,7 @@ export interface INewRecipeParams {
   category: string;
   imageUrl: string;
   ingredients: string[];
+  votes: number;
 }
 
 export const useRecipesStore = defineStore({
@@ -76,6 +77,7 @@ export const useRecipesStore = defineStore({
           category: params.category,
           imageUrl: params.imageUrl,
           ingredients: params.ingredients,
+          votes: params.votes,
         })
         .then((res) => {
           if (res && res.data) {
