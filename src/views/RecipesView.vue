@@ -22,6 +22,11 @@
     showNewRecipeDialog.value = true;
   }
 
+  function editDocument(id) {
+    showEditDialog.value = true;
+    selectedRecipe.value = allRecipes.value.find((x) => x._id == id);
+  }
+
   function closeDialogs() {
     refreshNeeding = true;
   }
@@ -181,6 +186,7 @@
           <v-img height="250" :src="recipe.imageUrl"></v-img>
           <v-card-text>{{ recipe.description }}</v-card-text>
           <v-col v-for="ingredient in recipe.ingredients" :key="ingredient">{{ ingredient }}</v-col>
+          <v-btn class="quick-btn" color="blue" @click="editDocument(recipe._id)">Edit</v-btn>
         </v-card>
       </v-col>
     </v-row>
