@@ -3,7 +3,10 @@
   <div class="startPage d-flex flex-column text-center justify-center" style="height: 90vh">
     <div class="shade"></div>
     <img class="logo" src="../assets/logo.png" />
-    <h1>Coo<span>King</span></h1>
+    <h1>
+      Coo
+      <span>King</span>
+    </h1>
     <h3>{{ $t("slogan") }}</h3>
   </div>
 </template>
